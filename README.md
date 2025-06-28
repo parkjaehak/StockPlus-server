@@ -64,11 +64,8 @@ RATE_LIMIT_MAX_REQUESTS=100
 ### 3. 서버 실행
 
 ```bash
-# 개발 모드
-npm run dev
-
-# 프로덕션 모드
-npm start
+npm install
+npm run dev # 또는 npm start
 ```
 
 ## 🔧 설정 옵션
