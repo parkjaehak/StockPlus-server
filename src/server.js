@@ -32,7 +32,7 @@ app.use(
 
 // 미들웨어
 app.use(express.json());
-app.use(rateLimiter);
+// app.use(rateLimiter); // Rate Limiter 해제
 
 // 헬스체크 엔드포인트
 app.get("/health", (req, res) => {
