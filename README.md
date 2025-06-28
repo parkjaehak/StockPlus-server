@@ -1,4 +1,4 @@
-# StockPlus Backend Server
+# StockPlus Server
 
 한국투자 Open API를 프록시하는 백엔드 서버입니다. Chrome 확장 프로그램에서 API 키를 공유하여 사용할 수 있도록 합니다.
 
@@ -178,6 +178,18 @@ npm run dev # 또는 npm start
 
 - 메인 서버 파일: `src/server.js`
 - 환경 변수/민감 정보: `src/env.js` (gitignore)
+
+## 🔧 환경 설정
+
+1. `env.example.js`를 `src/env.js`로 복사
+2. `src/env.js`에 실제 API 키 입력:
+   ```javascript
+   module.exports = {
+     APP_KEY: "your_app_key_here",
+     APP_SECRET: "your_app_secret_here",
+     HTS_USER_ID: "your_hts_user_id_here",
+   };
+   ```
 
 ## ✨ 기타
 
