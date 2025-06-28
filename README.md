@@ -143,3 +143,43 @@ vercel
 ## 📄 라이선스
 
 MIT License
+
+## 📦 폴더 구조
+
+```
+stock-view-server/
+├── src/
+│   ├── middleware/
+│   │   └── rateLimiter.js
+│   ├── services/
+│   │   ├── apiProxy.js
+│   │   └── tokenManager.js
+│   ├── config.js
+│   ├── env.js         ← gitignore
+│   └── server.js
+├── .gitignore
+├── env.example.js
+├── package.json
+├── package-lock.json
+├── README.md
+├── start.bat
+├── start.sh
+```
+
+- `src/env.js`는 민감 정보가 들어가며, `.gitignore`에 등록되어 있습니다.
+- `env.example.js`를 참고해서 `src/env.js`를 만들어 사용하세요.
+
+## 🚀 실행 방법
+
+```bash
+npm install
+npm run dev # 또는 npm start
+```
+
+- 메인 서버 파일: `src/server.js`
+- 환경 변수/민감 정보: `src/env.js` (gitignore)
+
+## ✨ 기타
+
+- test.js 파일은 삭제되었습니다.
+- 자세한 사용법 및 API 문서는 추후 추가 예정입니다.
