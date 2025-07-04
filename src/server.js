@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const config = require("./config");
@@ -65,7 +66,7 @@ app.use("*", (req, res) => {
 
 // 서버 시작
 app.listen(PORT, () => {
-  console.log(`🚀 StockPlus 서버가 포트 ${PORT}에서 실행 중입니다.`);
-  console.log(`📊 환경: ${config.NODE_ENV}`);
-  console.log(`🔗 헬스체크: http://localhost:${PORT}/health`);
+  console.log(`StockPlus 서버가 포트 ${PORT}에서 실행 중입니다.`);
+  console.log(`환경: ${config.NODE_ENV}`);
+  console.log(`헬스체크: http://localhost:${PORT}/health`);
 });
