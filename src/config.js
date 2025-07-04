@@ -9,7 +9,7 @@ const config = {
   NODE_ENV: "development",
 
   // CORS 설정 (Chrome Extension ID)
-  ALLOWED_ORIGINS: "*",
+  ALLOWED_ORIGINS: "chrome-extension://*",
 
   // API Rate Limiting
   RATE_LIMIT_WINDOW_MS: 60000,
