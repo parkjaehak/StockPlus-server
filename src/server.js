@@ -9,7 +9,28 @@ const app = express();
 const PORT = config.PORT;
 
 // CORS 설정
-app.use(cors());
+const allowedOrigins = config.ALLOWED_ORIGINS
+  ? config.ALLOWED_ORIGINS.split(",")
+  : ["chrome-extension://*"];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      console.log("요청 Origin:", origin); // origin 로그 출력
+      // Chrome Extension의 경우 origin이 null일 수 있음
+      if (
+        !origin ||
+        allowedOrigins.includes("chrome-extension://*") ||
+        allowedOrigins.includes(origin)
+      ) {
+        callback(null, true);
+      } else {
+        callback(new Error("CORS 정책에 의해 차단됨"));
+      }
+    },
+    credentials: true,
+  })
+);
 
 // 미들웨어
 app.use(express.json());

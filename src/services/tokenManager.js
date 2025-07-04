@@ -39,16 +39,13 @@ class TokenManager {
         const expiresIn = response.data.expires_in - 300;
         this.cache.set(cacheKey, token, expiresIn);
 
-        console.log("✅ 새로운 액세스 토큰 발급 완료");
+        console.log("새로운 액세스 토큰 발급 완료");
         return token;
       } else {
         throw new Error("토큰 응답에 access_token이 없습니다.");
       }
     } catch (error) {
-      console.error(
-        "❌ 토큰 발급 실패:",
-        error.response?.data || error.message
-      );
+      console.error("토큰 발급 실패:", error.response?.data || error.message);
       throw new Error(
         `토큰 발급 실패: ${
           error.response?.data?.error_description || error.message
@@ -85,16 +82,13 @@ class TokenManager {
         // 승인키는 24시간 유효
         this.cache.set(cacheKey, approvalKey, 23 * 60 * 60); // 23시간 캐시
 
-        console.log("✅ 새로운 승인키 발급 완료");
+        console.log("새로운 승인키 발급 완료");
         return approvalKey;
       } else {
         throw new Error("승인키 응답에 approval_key가 없습니다.");
       }
     } catch (error) {
-      console.error(
-        "❌ 승인키 발급 실패:",
-        error.response?.data || error.message
-      );
+      console.error("승인키 발급 실패:", error.response?.data || error.message);
       throw new Error(
         `승인키 발급 실패: ${
           error.response?.data?.error_description || error.message
