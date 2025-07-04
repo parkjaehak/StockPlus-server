@@ -9,27 +9,7 @@ const app = express();
 const PORT = config.PORT;
 
 // CORS 설정
-const allowedOrigins = config.ALLOWED_ORIGINS
-  ? config.ALLOWED_ORIGINS.split(",")
-  : ["chrome-extension://*"];
-
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      // Chrome Extension의 경우 origin이 null일 수 있음
-      if (
-        !origin ||
-        allowedOrigins.includes("chrome-extension://*") ||
-        allowedOrigins.includes(origin)
-      ) {
-        callback(null, true);
-      } else {
-        callback(new Error("CORS 정책에 의해 차단됨"));
-      }
-    },
-    credentials: true,
-  })
-);
+app.use(cors());
 
 // 미들웨어
 app.use(express.json());
@@ -68,5 +48,4 @@ app.use("*", (req, res) => {
 app.listen(PORT, () => {
   console.log(`StockPlus 서버가 포트 ${PORT}에서 실행 중입니다.`);
   console.log(`환경: ${config.NODE_ENV}`);
-  console.log(`헬스체크: http://localhost:${PORT}/health`);
 });
