@@ -35,7 +35,7 @@ class TokenManager {
 
       if (response.data.access_token) {
         token = response.data.access_token;
-        // 토큰 만료 5분 전에 캐시 만료
+        // Access Token 만료 5분 전에 캐시 만료
         const expiresIn = response.data.expires_in - 300;
         this.cache.set(cacheKey, token, expiresIn);
 
@@ -79,8 +79,8 @@ class TokenManager {
 
       if (response.data.approval_key) {
         approvalKey = response.data.approval_key;
-        // 승인키는 24시간 유효
-        this.cache.set(cacheKey, approvalKey, 23 * 60 * 60); // 23시간 캐시
+        // 승인키도 만료 5분 전에 캐시 만료 (24시간 - 5분)
+        this.cache.set(cacheKey, approvalKey, (24 * 60 * 60) - 300); // 23시간 55분
 
         console.log("새로운 승인키 발급 완료");
         return approvalKey;
