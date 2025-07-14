@@ -194,11 +194,42 @@ router.get("/approval-key", async (req, res) => {
 router.get("/token-status", async (req, res) => {
   try {
     const status = tokenManager.getCacheStatus();
-    res.json(status);
+    res.json({
+      ...status,
+      message: "토큰 상태 확인 완료",
+      timestamp: new Date().toISOString()
+    });
   } catch (error) {
     console.error("토큰 상태 확인 실패:", error.message);
     res.status(500).json({
       error: "토큰 상태 확인 실패",
+      message: error.message,
+    });
+  }
+});
+
+// 수동 토큰 갱신 (관리자용)
+router.post("/refresh-tokens", async (req, res) => {
+  try {
+    // 기존 캐시 초기화
+    tokenManager.clearCache();
+    
+    // 새로운 토큰 발급
+    const [accessToken, approvalKey] = await Promise.all([
+      tokenManager.getAccessToken(),
+      tokenManager.getApprovalKey()
+    ]);
+    
+    res.json({
+      message: "토큰 수동 갱신 완료",
+      accessToken: accessToken ? "발급됨" : "실패",
+      approvalKey: approvalKey ? "발급됨" : "실패",
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error("수동 토큰 갱신 실패:", error.message);
+    res.status(500).json({
+      error: "수동 토큰 갱신 실패",
       message: error.message,
     });
   }

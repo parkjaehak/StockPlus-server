@@ -70,20 +70,9 @@ app.listen(PORT, () => {
   console.log(`StockPlus 서버가 포트 ${PORT}에서 실행 중입니다.`);
   console.log(`환경: ${config.NODE_ENV}`);
 
-  // 토큰/승인키 주기적 갱신
+  // 토큰/승인키 백그라운드 자동 갱신 시작
   const { tokenManager } = require('./services/tokenManager');
-
-  // 서버 시작 시 즉시 한 번 발급
-  tokenManager.getAccessToken().catch(() => {});
-  tokenManager.getApprovalKey().catch(() => {});
-
-  // 23시간 55분(24시간-5분)마다 Access Token 미리 갱신
-  setInterval(() => {
-    tokenManager.getAccessToken().catch(() => {});
-  }, (24 * 60 * 60 - 300) * 1000); // 23시간 55분
-
-  // 23시간 55분(24시간-5분)마다 Approval Key 미리 갱신
-  setInterval(() => {
-    tokenManager.getApprovalKey().catch(() => {});
-  }, (24 * 60 * 60 - 300) * 1000); // 23시간 55분
+  
+  // 백그라운드에서 자동으로 토큰 갱신 시작
+  tokenManager.startAutoRefresh();
 });
